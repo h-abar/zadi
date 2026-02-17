@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زادي | Zadi — za-di.com</title>
+    <meta name="description" content="ورد عشوائي ذكي بناءً على حالتك النفسية - آيات قرآنية وأذكار مأثورة">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&family=Amiri+Quran&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕌</text></svg>">
+</head>
+<body>
+
+    <!-- ========== Islamic SVG Background Layer ========== -->
+    <div class="bg-layer">
+        <!-- Floating Islamic geometric particles -->
+        <svg class="bg-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <!-- 8-pointed star -->
+                <polygon id="star8" points="50,0 38,38 0,50 38,62 50,100 62,62 100,50 62,38" fill="currentColor"/>
+                <!-- Crescent -->
+                <g id="crescent">
+                    <circle cx="20" cy="20" r="18" fill="currentColor"/>
+                    <circle cx="28" cy="16" r="15" fill="#0a1628"/>
+                </g>
+                <!-- Islamic geometric tile -->
+                <g id="geo-tile">
+                    <rect x="5" y="5" width="40" height="40" rx="2" fill="none" stroke="currentColor" stroke-width="0.8" transform="rotate(45 25 25)"/>
+                    <circle cx="25" cy="25" r="10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                </g>
+            </defs>
+            <!-- Animated floating elements -->
+            <use href="#star8" x="80" y="100" width="20" height="20" class="float-particle p1" opacity="0.04"/>
+            <use href="#star8" x="850" y="150" width="25" height="25" class="float-particle p2" opacity="0.03"/>
+            <use href="#star8" x="200" y="700" width="18" height="18" class="float-particle p3" opacity="0.04"/>
+            <use href="#star8" x="750" y="800" width="22" height="22" class="float-particle p4" opacity="0.035"/>
+            <use href="#star8" x="500" y="50" width="15" height="15" class="float-particle p5" opacity="0.03"/>
+            <use href="#star8" x="400" y="900" width="20" height="20" class="float-particle p6" opacity="0.04"/>
+            <use href="#crescent" x="900" y="60" width="35" height="35" class="float-particle p7" opacity="0.035"/>
+            <use href="#crescent" x="50" y="400" width="30" height="30" class="float-particle p8" opacity="0.03"/>
+            <use href="#geo-tile" x="150" y="300" width="50" height="50" class="float-particle p9 spin-slow" opacity="0.025"/>
+            <use href="#geo-tile" x="800" y="500" width="45" height="45" class="float-particle p10 spin-slow" opacity="0.02"/>
+            <use href="#geo-tile" x="500" y="450" width="40" height="40" class="float-particle p11 spin-slow" opacity="0.02"/>
+            <use href="#star8" x="650" y="300" width="12" height="12" class="float-particle p12" opacity="0.03"/>
+        </svg>
+        <!-- Radial glows -->
+        <div class="glow glow-gold"></div>
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-purple"></div>
+    </div>
+
+    <div class="container">
+        <!-- ========== Header with Islamic arch ========== -->
+        <header class="header">
+            <div class="logo-area">
+                <!-- Islamic arch SVG -->
+                <svg class="arch-svg" viewBox="0 0 200 120" width="160" height="96">
+                    <defs>
+                        <linearGradient id="archGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.3"/>
+                            <stop offset="100%" stop-color="#c9a84c" stop-opacity="0.08"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M10,120 L10,50 Q10,10 100,10 Q190,10 190,50 L190,120" fill="none" stroke="url(#archGrad)" stroke-width="1.5" class="draw-in"/>
+                    <path d="M30,120 L30,55 Q30,25 100,25 Q170,25 170,55 L170,120" fill="none" stroke="url(#archGrad)" stroke-width="0.8" class="draw-in delay1"/>
+                    <!-- Small star at arch top -->
+                    <use href="#star8" x="92" y="2" width="16" height="16" fill="#c9a84c" opacity="0.4" class="pulse-glow"/>
+                </svg>
+                <div class="logo-icon">﷽</div>
+                <h1 class="title">زادي</h1>
+                <p class="subtitle">ورد عشوائي ذكي يُناسب حالتك</p>
+            </div>
+        </header>
+
+        <!-- ========== Category Buttons ========== -->
+        <nav class="categories" id="categories">
+            <button class="cat-btn active" data-category="" onclick="selectCategory(this, '')">
+                <span class="cat-icon">✨</span>
+                <span class="cat-label">الكل</span>
+            </button>
+            <button class="cat-btn" data-category="stress" onclick="selectCategory(this, 'stress')">
+                <span class="cat-icon">🌊</span>
+                <span class="cat-label">أشعر بالضغط</span>
+            </button>
+            <button class="cat-btn" data-category="focus" onclick="selectCategory(this, 'focus')">
+                <span class="cat-icon">🎯</span>
+                <span class="cat-label">أحتاج للتركيز</span>
+            </button>
+            <button class="cat-btn" data-category="gratitude" onclick="selectCategory(this, 'gratitude')">
+                <span class="cat-icon">💎</span>
+                <span class="cat-label">أريد شكر الله</span>
+            </button>
+            <button class="cat-btn" data-category="sleep" onclick="selectCategory(this, 'sleep')">
+                <span class="cat-icon">🌙</span>
+                <span class="cat-label">قبل النوم</span>
+            </button>
+        </nav>
+
+        <!-- ========== Main Display Card ========== -->
+        <main class="card-area">
+            <div class="dhikr-card" id="dhikrCard">
+                <!-- Islamic border SVG -->
+                <svg class="card-border-svg" viewBox="0 0 600 400" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
+                            <stop offset="50%" stop-color="#c9a84c" stop-opacity="0.4"/>
+                            <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Top ornamental line -->
+                    <line x1="0" y1="1" x2="600" y2="1" stroke="url(#borderGrad)" stroke-width="2"/>
+                    <!-- Corner ornaments -->
+                    <path d="M15,35 L15,15 L35,15" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.2"/>
+                    <path d="M585,35 L585,15 L565,15" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.2"/>
+                    <path d="M15,365 L15,385 L35,385" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.2"/>
+                    <path d="M585,365 L585,385 L565,385" fill="none" stroke="#c9a84c" stroke-width="1.2" opacity="0.2"/>
+                    <!-- Diamond centers -->
+                    <polygon points="300,8 305,13 300,18 295,13" fill="#c9a84c" opacity="0.2"/>
+                    <polygon points="300,382 305,387 300,392 295,387" fill="#c9a84c" opacity="0.15"/>
+                </svg>
+
+                <div class="card-type" id="cardType">
+                    <span class="type-badge quran">قرآن كريم</span>
+                </div>
+                
+                <div class="card-content" id="cardContent">
+                    <p class="dhikr-text" id="dhikrText">اضغط "تزوَّد" لتحصل على وِردك</p>
+                </div>
+                
+                <div class="card-source" id="cardSource">
+                    <span class="source-text"></span>
+                </div>
+
+                <div class="card-category" id="cardCategory"></div>
+            </div>
+
+            <!-- Action Button -->
+            <button class="main-btn" id="mainBtn" onclick="getRandomDhikr()">
+                <span class="btn-text">تزوَّد</span>
+                <span class="btn-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 4v6h-6"></path>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                    </svg>
+                </span>
+            </button>
+
+            <!-- Secondary Actions -->
+            <div class="secondary-actions">
+                <button class="action-btn" onclick="copyDhikr()" id="copyBtn" title="نسخ">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span>نسخ</span>
+                </button>
+                <button class="action-btn" onclick="shareDhikr()" id="shareBtn" title="مشاركة">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    <span>مشاركة</span>
+                </button>
+                <button class="action-btn" onclick="openStylePicker()" id="downloadBtn" title="تحميل كبطاقة">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>تحميل كخلفية</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- ========== Card Style Picker Modal ========== -->
+        <div class="style-picker-overlay" id="stylePickerOverlay" onclick="closeStylePicker(event)">
+            <div class="style-picker" onclick="event.stopPropagation()">
+                <h3 class="picker-title">اختر تصميم الخلفية</h3>
+                <div class="style-grid">
+                    <button class="style-option active" data-style="royal" onclick="selectStyle(this, 'royal')">
+                        <div class="style-preview royal-preview"></div>
+                        <span>ملكي</span>
+                    </button>
+                    <button class="style-option" data-style="nature" onclick="selectStyle(this, 'nature')">
+                        <div class="style-preview nature-preview"></div>
+                        <span>طبيعة</span>
+                    </button>
+                    <button class="style-option" data-style="midnight" onclick="selectStyle(this, 'midnight')">
+                        <div class="style-preview midnight-preview"></div>
+                        <span>ليلي</span>
+                    </button>
+                    <button class="style-option" data-style="marble" onclick="selectStyle(this, 'marble')">
+                        <div class="style-preview marble-preview"></div>
+                        <span>رخامي</span>
+                    </button>
+                    <button class="style-option" data-style="sunset" onclick="selectStyle(this, 'sunset')">
+                        <div class="style-preview sunset-preview"></div>
+                        <span>غروب</span>
+                    </button>
+                    <button class="style-option" data-style="ocean" onclick="selectStyle(this, 'ocean')">
+                        <div class="style-preview ocean-preview"></div>
+                        <span>محيط</span>
+                    </button>
+                </div>
+                <button class="picker-download-btn" onclick="downloadCard()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    تحميل الآن
+                </button>
+            </div>
+        </div>
+
+        <!-- ========== API Section ========== -->
+        <section class="api-section" id="apiSection">
+            <div class="api-toggle" onclick="toggleAPI()">
+                <span class="api-icon">⚡</span>
+                <span>للمطورين: استعمل الـ API الخاص بنا</span>
+                <svg class="chevron" id="apiChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="api-content" id="apiContent">
+                <div class="api-info">
+                    <h3>🔗 نقاط الوصول (Endpoints)</h3>
+                    <div class="endpoint">
+                        <div class="endpoint-header"><span class="method">GET</span><code>/api/random-dhikr</code></div>
+                        <p>ذكر عشوائي من جميع التصنيفات</p>
+                    </div>
+                    <div class="endpoint">
+                        <div class="endpoint-header"><span class="method">GET</span><code>/api/random-dhikr?category=stress</code></div>
+                        <p>ذكر عشوائي من تصنيف محدد: <code>stress</code> | <code>focus</code> | <code>gratitude</code> | <code>sleep</code></p>
+                    </div>
+                    <div class="endpoint">
+                        <div class="endpoint-header"><span class="method">GET</span><code>/api/categories</code></div>
+                        <p>قائمة جميع التصنيفات المتاحة</p>
+                    </div>
+                    <div class="endpoint">
+                        <div class="endpoint-header"><span class="method">GET</span><code>/api/generate-card?category=stress</code></div>
+                        <p>توليد بطاقة PNG (1080x1920) بذكر عشوائي 🖼️ <em>(يتطلب Go)</em></p>
+                    </div>
+                    <h3>💻 مثال استخدام</h3>
+                    <div class="code-block">
+                        <div class="code-header"><span>cURL</span><button class="copy-code-btn" onclick="copyCode(this)">نسخ</button></div>
+                        <pre><code>curl -s https://za-di.com/api/random-dhikr | jq .</code></pre>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header"><span>JavaScript</span><button class="copy-code-btn" onclick="copyCode(this)">نسخ</button></div>
+                        <pre><code>const res = await fetch('https://za-di.com/api/random-dhikr?category=sleep');
+const data = await res.json();
+console.log(data.text);</code></pre>
+                    </div>
+                    <div class="code-block">
+                        <div class="code-header"><span>Python</span><button class="copy-code-btn" onclick="copyCode(this)">نسخ</button></div>
+                        <pre><code>import requests
+r = requests.get('https://za-di.com/api/random-dhikr')
+print(r.json()['text'])</code></pre>
+                    </div>
+                    <div class="api-note">
+                        <p>🕊️ هذا المشروع <strong>صدقة جارية تقنية لأمي وأمهات المسلمين</strong> — استخدمه مجاناً في تطبيقاتك لنشر الخير</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Quran Player Section ========== -->
+        <section class="quran-section" id="quranSection">
+            <div class="section-toggle" onclick="toggleQuran()">
+                <span class="section-icon">📖</span>
+                <span>القرآن الكريم — استماع وتلاوة</span>
+                <svg class="chevron" id="quranChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="quran-content" id="quranContent">
+                <!-- Controls -->
+                <div class="quran-controls">
+                    <div class="control-group">
+                        <label for="surahSelect">اختر السورة</label>
+                        <select id="surahSelect" class="quran-select" onchange="loadSurah()">
+                            <option value="">-- اختر سورة --</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="reciterSelect">اختر القارئ</label>
+                        <select id="reciterSelect" class="quran-select" onchange="changeReciter()">
+                            <option value="Alafasy_128kbps">مشاري العفاسي</option>
+                            <option value="Abdul_Basit_Mujawwad_128kbps">عبد الباسط عبد الصمد (مجود)</option>
+                            <option value="Abdul_Basit_Murattal_128kbps">عبد الباسط عبد الصمد (مرتل)</option>
+                            <option value="Ahmed_ibn_Ali_al-Ajamy_128kbps_KetabAllah">أحمد بن علي العجمي</option>
+                            <option value="Husary_128kbps">محمود خليل الحصري</option>
+                            <option value="MaherAlMuaiqly128kbps">ماهر المعيقلي</option>
+                            <option value="Minshawy_Mujawwad_128kbps">محمد صديق المنشاوي</option>
+                            <option value="Muhammad_Ayyoub_128kbps">محمد أيوب</option>
+                            <option value="Saood_ash-Shuraym_128kbps">سعود الشريم</option>
+                            <option value="Abu_Bakr_Ash-Shaatree_128kbps">أبو بكر الشاطري</option>
+                            <option value="Yasser_Ad-Dussary_128kbps">ياسر الدوسري</option>
+                        </select>
+                    </div>
+                    <div class="control-group translation-group">
+                        <label for="translationSelect">الترجمة</label>
+                        <select id="translationSelect" class="quran-select" onchange="changeTranslation()">
+                            <option value="">بدون ترجمة</option>
+                            <option value="en.sahih">English — Sahih International</option>
+                            <option value="fr.hamidullah">Français — Hamidullah</option>
+                            <option value="es.cortes">Español — Cortes</option>
+                            <option value="ur.jalandhry">اردو — جالندہری</option>
+                            <option value="tr.diyanet">Türkçe — Diyanet</option>
+                            <option value="id.indonesian">Bahasa Indonesia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Audio Player -->
+                <div class="audio-player" id="audioPlayer">
+                    <div class="player-controls">
+                        <button class="player-btn" id="prevBtn" onclick="prevAyah()" title="الآية السابقة">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                        </button>
+                        <button class="player-btn play-btn" id="playBtn" onclick="togglePlay()" title="تشغيل/إيقاف">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" id="pauseIcon" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        </button>
+                        <button class="player-btn" id="nextBtn" onclick="nextAyah()" title="الآية التالية">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                        </button>
+                        <button class="player-btn repeat-btn" id="repeatBtn" onclick="toggleRepeat()" title="تكرار السورة">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                        </button>
+                    </div>
+                    <div class="progress-container" id="progressContainer" onclick="seekAudio(event)">
+                        <div class="progress-bar" id="progressBar"></div>
+                        <div class="progress-handle" id="progressHandle"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span>
+                        <span id="totalTime">0:00</span>
+                    </div>
+                </div>
+
+                <!-- Ayah Display -->
+                <div class="ayah-display" id="ayahDisplay">
+                    <div class="bismillah" id="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                    <div class="ayah-text" id="ayahText">
+                        <p>اختر سورة للبدء في الاستماع</p>
+                    </div>
+                    <div class="ayah-translation" id="ayahTranslation"></div>
+                    <div class="ayah-number" id="ayahNumber"></div>
+                </div>
+
+                <!-- Surah Info -->
+                <div class="surah-info" id="surahInfo"></div>
+
+                <!-- Ayah Navigator -->
+                <div class="ayah-navigator" id="ayahNavigator">
+                    <div class="navigator-title">الآيات</div>
+                    <div class="ayah-list" id="ayahList"></div>
+                </div>
+
+                <!-- Audio Element -->
+                <audio id="quranAudio" preload="metadata"></audio>
+            </div>
+        </section>
+
+        <!-- ========== Prayer Times Section ========== -->
+        <section class="prayer-section" id="prayerSection">
+            <div class="section-toggle" onclick="togglePrayer()">
+                <span class="section-icon">🕌</span>
+                <span>مواقيت الصلاة</span>
+                <svg class="chevron" id="prayerChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="prayer-content" id="prayerContent">
+                <div class="location-controls">
+                    <button class="location-btn" onclick="getLocationAndPrayerTimes()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                        تحديد موقعي
+                    </button>
+                    <span class="location-status" id="locationStatus">اضغط للحصول على مواقيت الصلاة لمنطقتك</span>
+                </div>
+                <div class="prayer-times" id="prayerTimes">
+                    <div class="prayer-card" data-prayer="Fajr">
+                        <div class="prayer-name">الفجر</div>
+                        <div class="prayer-time" id="fajrTime">--:--</div>
+                    </div>
+                    <div class="prayer-card" data-prayer="Sunrise">
+                        <div class="prayer-name">الشروق</div>
+                        <div class="prayer-time" id="sunriseTime">--:--</div>
+                    </div>
+                    <div class="prayer-card" data-prayer="Dhuhr">
+                        <div class="prayer-name">الظهر</div>
+                        <div class="prayer-time" id="dhuhrTime">--:--</div>
+                    </div>
+                    <div class="prayer-card" data-prayer="Asr">
+                        <div class="prayer-name">العصر</div>
+                        <div class="prayer-time" id="asrTime">--:--</div>
+                    </div>
+                    <div class="prayer-card" data-prayer="Maghrib">
+                        <div class="prayer-name">المغرب</div>
+                        <div class="prayer-time" id="maghribTime">--:--</div>
+                    </div>
+                    <div class="prayer-card" data-prayer="Isha">
+                        <div class="prayer-name">العشاء</div>
+                        <div class="prayer-time" id="ishaTime">--:--</div>
+                    </div>
+                </div>
+                <div class="hijri-date" id="hijriDate">
+                    <span class="date-icon">🌙</span>
+                    <span id="hijriDateText">جاري التحميل...</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Tasbih Counter Section ========== -->
+        <section class="tasbih-section" id="tasbihSection">
+            <div class="section-toggle" onclick="toggleTasbih()">
+                <span class="section-icon">📿</span>
+                <span>المسبحة الإلكترونية</span>
+                <svg class="chevron" id="tasbihChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="tasbih-content" id="tasbihContent">
+                <div class="tasbih-display">
+                    <div class="tasbih-count" id="tasbihCount">0</div>
+                    <div class="tasbih-target">الهدف: <span id="tasbihTarget">33</span></div>
+                </div>
+                <div class="tasbih-controls">
+                    <button class="tasbih-btn count-btn" onclick="incrementTasbih()">
+                        <span class="tasbih-btn-text">سبّح</span>
+                    </button>
+                    <div class="tasbih-row">
+                        <button class="tasbih-btn preset-btn" onclick="setTarget(33)">33</button>
+                        <button class="tasbih-btn preset-btn" onclick="setTarget(99)">99</button>
+                        <button class="tasbih-btn preset-btn" onclick="setTarget(100)">100</button>
+                    </div>
+                    <button class="tasbih-btn reset-btn" onclick="resetTasbih()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 12"/><path d="M3 3v9h9"/></svg>
+                        إعادة
+                    </button>
+                </div>
+                <div class="dhikr-presets">
+                    <button class="dhikr-preset" onclick="setDhikr('سبحان الله')">سبحان الله</button>
+                    <button class="dhikr-preset" onclick="setDhikr('الحمد لله')">الحمد لله</button>
+                    <button class="dhikr-preset" onclick="setDhikr('الله أكبر')">الله أكبر</button>
+                    <button class="dhikr-preset" onclick="setDhikr('لا إله إلا الله')">لا إله إلا الله</button>
+                    <button class="dhikr-preset" onclick="setDhikr('أستغفر الله')">أستغفر الله</button>
+                </div>
+                <div class="current-dhikr" id="currentDhikrDisplay">اختر ذكراً للبدء</div>
+            </div>
+        </section>
+
+        <!-- ========== 99 Names of Allah Section ========== -->
+        <section class="names-section" id="namesSection">
+            <div class="section-toggle" onclick="toggleNames()">
+                <span class="section-icon">✨</span>
+                <span>أسماء الله الحسنى</span>
+                <svg class="chevron" id="namesChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="names-content" id="namesContent">
+                <div class="names-display" id="namesDisplay">
+                    <div class="name-card" id="nameCard">
+                        <div class="name-arabic" id="nameArabic">الله</div>
+                        <div class="name-transliteration" id="nameTransliteration">Allah</div>
+                        <div class="name-meaning" id="nameMeaning">الاسم الأعظم</div>
+                        <div class="name-description" id="nameDescription">
+                            الله هو الاسم الأعظم والأول لله سبحانه وتعالى، ويشمل جميع صفات الكمال
+                        </div>
+                    </div>
+                </div>
+                <div class="names-controls">
+                    <button class="name-btn" onclick="prevName()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                        السابق
+                    </button>
+                    <button class="name-btn shuffle-btn" onclick="randomName()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+                        عشوائي
+                    </button>
+                    <button class="name-btn" onclick="nextName()">
+                        التالي
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+                    </button>
+                </div>
+                <div class="names-list" id="namesList"></div>
+            </div>
+        </section>
+
+        <!-- ========== Hadith of the Day Section ========== -->
+        <section class="hadith-section" id="hadithSection">
+            <div class="section-toggle" onclick="toggleHadith()">
+                <span class="section-icon">📜</span>
+                <span>حديث اليوم</span>
+                <svg class="chevron" id="hadithChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="hadith-content" id="hadithContent">
+                <div class="hadith-display" id="hadithDisplay">
+                    <div class="hadith-text" id="hadithText">جاري تحميل الحديث...</div>
+                    <div class="hadith-narrator" id="hadithNarrator"></div>
+                    <div class="hadith-source" id="hadithSource"></div>
+                </div>
+                <div class="hadith-controls">
+                    <button class="hadith-btn" onclick="loadRandomHadith()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                        حديث آخر
+                    </button>
+                    <button class="hadith-btn" onclick="copyHadith()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        نسخ
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Qibla Direction Section ========== -->
+        <section class="qibla-section" id="qiblaSection">
+            <div class="section-toggle" onclick="toggleQibla()">
+                <span class="section-icon">🧭</span>
+                <span>اتجاه القبلة</span>
+                <svg class="chevron" id="qiblaChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="qibla-content" id="qiblaContent">
+                <div class="qibla-display">
+                    <div class="compass-container">
+                        <div class="compass" id="compass">
+                            <div class="compass-rose">
+                                <span class="direction-n">N</span>
+                                <span class="direction-e">E</span>
+                                <span class="direction-s">S</span>
+                                <span class="direction-w">W</span>
+                                <div class="compass-arrow" id="compassArrow"></div>
+                                <div class="qibla-indicator" id="qiblaIndicator">🕋</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qibla-info" id="qiblaInfo">
+                        <div class="qibla-angle" id="qiblaAngle">--°</div>
+                        <div class="qibla-text">اتجاه القبلة</div>
+                        <div class="location-text" id="qiblaLocation">اضغط لتحديد موقعك</div>
+                    </div>
+                </div>
+                <button class="location-btn qibla-btn" onclick="getQiblaDirection()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+                    تحديد اتجاه القبلة
+                </button>
+            </div>
+        </section>
+
+        <!-- ========== Footer ========== -->
+        <footer class="footer">
+            <svg class="footer-ornament" viewBox="0 0 200 20" width="120" height="12">
+                <line x1="0" y1="10" x2="80" y2="10" stroke="#c9a84c" stroke-width="0.5" opacity="0.2"/>
+                <polygon points="100,3 105,10 100,17 95,10" fill="#c9a84c" opacity="0.2"/>
+                <line x1="120" y1="10" x2="200" y2="10" stroke="#c9a84c" stroke-width="0.5" opacity="0.2"/>
+            </svg>
+            <p>زادي — صدقة جارية تقنية 🤲 لأمي وأمهات المسلمين</p>
+            <p class="footer-sub">صُنع بـ ❤️ لخدمة المسلمين</p>
+        </footer>
+    </div>
+
+    <!-- Canvas for card generation (hidden) -->
+    <canvas id="cardCanvas" width="1080" height="1920" style="display:none;"></canvas>
+
+    <script src="app.js"></script>
+</body>
+</html>
