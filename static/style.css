@@ -129,6 +129,92 @@ body {
     flex-direction: column;
 }
 
+/* ============ Professional Islamic Date Banner ============ */
+.date-banner {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03), rgba(91,140,90,0.05));
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.date-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    opacity: 0.4;
+}
+
+.banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.banner-left, .banner-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.banner-icon {
+    font-size: 1.1rem;
+}
+
+.hijri-date-banner {
+    font-family: 'Amiri', serif;
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+.gregorian-date-banner {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.banner-center {
+    flex: 1;
+    text-align: center;
+}
+
+.site-tagline {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.banner-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.banner-decoration svg {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 640px) {
+    .date-banner { padding: 0.6rem 0.75rem; margin-bottom: 1rem; }
+    .banner-content { flex-wrap: wrap; justify-content: center; }
+    .banner-center { order: -1; width: 100%; margin-bottom: 0.3rem; }
+    .banner-left, .banner-right { font-size: 0.8rem; }
+    .gregorian-date-banner { font-size: 0.75rem; }
+}
+
 /* ============ Header ============ */
 .header { text-align: center; padding: 1.5rem 0 1rem; }
 

@@ -730,6 +730,9 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('loadedmetadata', () => {
         document.getElementById('totalTime').textContent = formatTime(audio.duration);
     });
+
+    // Load banner dates on page load
+    loadBannerDates();
 });
 
 function updateProgress() {
@@ -770,6 +773,44 @@ function toggleQuran() {
     const chevron = document.getElementById('quranChevron');
     content.classList.toggle('open');
     chevron.classList.toggle('open');
+}
+
+// ============ Date Banner ============
+
+async function loadBannerDates() {
+    try {
+        // Load Hijri date
+        const res = await fetch('https://api.aladhan.com/v1/gToH');
+        const data = await res.json();
+        const hijri = data.data.hijri;
+        const gregorian = data.data.gregorian;
+
+        // Update Hijri date in banner
+        const hijriBanner = document.getElementById('hijriDateBanner');
+        if (hijriBanner) {
+            hijriBanner.textContent = `${hijri.day} ${hijri.month.ar} ${hijri.year}هـ`;
+        }
+
+        // Update Gregorian date in banner
+        const gregorianBanner = document.getElementById('gregorianDateBanner');
+        if (gregorianBanner) {
+            const gregDate = new Date(gregorian.date);
+            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+            gregorianBanner.textContent = gregDate.toLocaleDateString('en-US', options);
+        }
+    } catch (err) {
+        console.error('Failed to load banner dates:', err);
+        // Set fallback dates
+        const now = new Date();
+        const hijriBanner = document.getElementById('hijriDateBanner');
+        const gregorianBanner = document.getElementById('gregorianDateBanner');
+
+        if (hijriBanner) hijriBanner.textContent = 'جاري التحديث...';
+        if (gregorianBanner) {
+            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+            gregorianBanner.textContent = now.toLocaleDateString('en-US', options);
+        }
+    }
 }
 
 // ============ Prayer Times ============
