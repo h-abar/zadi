@@ -589,3 +589,4 @@ func wwwRedirect(handler http.Handler) http.Handler {
 		}
 		handler.ServeHTTP(w, r)
 	})
+}
