@@ -556,9 +556,9 @@ func main() {
 	http.HandleFunc("/api/category", categoryItemsHandler)
 	http.HandleFunc("/api/generate-card", generateCardHandler)
 
-	// Static files
+	// Static files with www redirect middleware
 	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/", fs)
+	http.Handle("/", wwwRedirect(fs))
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -572,3 +572,20 @@ func main() {
 
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
+
+// wwwRedirect middleware redirects non-www requests to www
+func wwwRedirect(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Check if host is not localhost and doesn't start with www
+		host := r.Host
+		if host != "" && !strings.HasPrefix(host, "www.") && !strings.HasPrefix(host, "localhost") && !strings.HasPrefix(host, "127.") {
+			// Redirect to www version
+			wwwURL := "https://www." + host + r.URL.Path
+			if r.URL.RawQuery != "" {
+				wwwURL += "?" + r.URL.RawQuery
+			}
+			http.Redirect(w, r, wwwURL, http.StatusMovedPermanently)
+			return
+		}
+		handler.ServeHTTP(w, r)
+	})
