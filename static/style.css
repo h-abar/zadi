@@ -797,16 +797,58 @@ body {
 
 /* Responsive for Mushaf */
 @media (max-width: 640px) {
+    /* Mushaf Controls */
+    .mushaf-controls { flex-direction: column; gap: 0.75rem; }
+    .mushaf-input { width: 100%; font-size: 0.95rem; padding: 0.7rem; }
+    
+    /* Mushaf Display */
+    .mushaf-header { flex-direction: column; gap: 0.6rem; align-items: center; }
+    .mushaf-header .surah-name { font-size: 1.2rem; text-align: center; }
+    .mushaf-bismillah { font-size: 1.4rem; }
+    .mushaf-text { font-size: 1.4rem; line-height: 2.3; }
+    .ayah-number-marker { 
+        min-width: 30px; 
+        height: 30px; 
+        font-size: 0.8rem;
+        margin: 0 0.4rem;
+    }
+    .mushaf-juz-info { font-size: 0.9rem; }
+    
+    /* Navigation */
+    .mushaf-nav-btn { 
+        padding: 0.75rem 1rem; 
+        font-size: 0.9rem;
+        min-height: 48px;
+    }
+    
+    /* Surah Grid */
+    .surah-grid { 
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
+        gap: 0.6rem;
+    }
+    .surah-grid-item { padding: 0.9rem 0.5rem; }
+    .surah-grid-item .surah-name-grid { font-size: 1rem; }
+}
+
+@media (max-width: 440px) {
     .mushaf-text { font-size: 1.3rem; line-height: 2.2; }
-    .mushaf-bismillah { font-size: 1.3rem; }
-    .surah-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-    .mushaf-header { flex-direction: column; gap: 0.5rem; }
+    .mushaf-bismillah { font-size: 1.2rem; }
 }
 
 @media (max-width: 380px) {
-    .mushaf-text { font-size: 1.1rem; }
+    .mushaf-text { font-size: 1.15rem; line-height: 2.1; }
+    .mushaf-bismillah { font-size: 1.1rem; }
+    .ayah-number-marker { 
+        min-width: 28px; 
+        height: 28px; 
+        font-size: 0.75rem;
+    }
     .surah-grid { grid-template-columns: repeat(2, 1fr); }
-    .mushaf-nav-btn { font-size: 0.8rem; padding: 0.6rem 0.8rem; }
+    .mushaf-nav-btn { 
+        font-size: 0.85rem; 
+        padding: 0.7rem 0.9rem;
+        min-height: 44px;
+    }
 }
 
 /* ============ API Section ============ */
@@ -904,29 +946,86 @@ body {
     50% { background-position: 100% 50%; }
 }
 
-/* ============ Responsive ============ */
+/* ============ Responsive Design - Mobile First ============ */
+
+/* Touch UX improvements for all devices */
+button, .cat-btn, .action-btn, .player-btn, .mushaf-nav-btn, .name-btn, .hadith-btn {
+    -webkit-tap-highlight-color: rgba(201, 168, 76, 0.2);
+    touch-action: manipulation;
+}
+
+/* Tablets and small laptops (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container { max-width: 90%; padding: 1.5rem; }
+    .title { font-size: 2.8rem; }
+    .dhikr-text { font-size: 1.5rem; }
+}
+
+/* Mobile devices (up to 640px) */
 @media (max-width: 640px) {
-    .container { padding: 1rem; }
-    .title { font-size: 2.6rem; }
-    .subtitle { font-size: 0.95rem; }
+    .container { padding: 1rem 0.75rem; }
+    .title { font-size: 2.4rem; }
+    .subtitle { font-size: 0.9rem; }
     .arch-svg { width: 120px; height: 72px; }
+    
+    /* Categories */
     .categories { gap: 0.5rem; padding: 1rem 0; }
-    .cat-btn { padding: 0.5rem 0.9rem; font-size: 0.82rem; }
-    .dhikr-card { padding: 2.5rem 1.5rem; min-height: 220px; border-radius: var(--radius-md); }
-    .dhikr-text { font-size: 1.35rem; line-height: 2; }
-    .main-btn { padding: 0.85rem 2.5rem; font-size: 1.1rem; }
-    .secondary-actions { gap: 0.5rem; }
-    .action-btn { padding: 0.45rem 0.8rem; font-size: 0.75rem; }
-    .style-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .cat-btn { 
+        padding: 0.6rem 1rem; 
+        font-size: 0.85rem;
+        min-height: 44px;
+    }
+    
+    /* Dhikr Card */
+    .dhikr-card { padding: 2rem 1.25rem; min-height: 200px; border-radius: var(--radius-md); }
+    .dhikr-text { font-size: 1.4rem; line-height: 2.1; }
+    
+    /* Buttons */
+    .main-btn { 
+        padding: 0.9rem 2.5rem; 
+        font-size: 1.15rem;
+        min-height: 50px;
+    }
+    .secondary-actions { gap: 0.6rem; }
+    .action-btn { 
+        padding: 0.5rem 0.9rem; 
+        font-size: 0.8rem;
+        min-height: 44px;
+    }
+    
+    /* Style Picker */
+    .style-grid { grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
     .style-picker { padding: 1.5rem; }
 }
 
-@media (max-width: 380px) {
+/* Small phones (380px - 440px) */
+@media (max-width: 440px) {
     .title { font-size: 2.2rem; }
-    .dhikr-text { font-size: 1.2rem; }
-    .cat-btn { padding: 0.45rem 0.7rem; font-size: 0.78rem; }
+    .dhikr-text { font-size: 1.3rem; line-height: 2; }
+    .main-btn { padding: 0.85rem 2rem; font-size: 1.05rem; }
+}
+
+/* Extra small phones (below 380px) */
+@media (max-width: 380px) {
+    .container { padding: 0.75rem 0.5rem; }
+    .title { font-size: 1.9rem; }
+    .subtitle { font-size: 0.85rem; }
+    .dhikr-text { font-size: 1.15rem; }
+    .dhikr-card { padding: 1.75rem 1rem; }
+    
+    /* Category buttons - icon only on very small screens */
+    .cat-btn { 
+        padding: 0.5rem 0.75rem; 
+        font-size: 0.8rem;
+        min-width: 44px;
+    }
     .cat-btn .cat-label { display: none; }
     .cat-btn .cat-icon { font-size: 1.3rem; }
+    
+    /* Buttons */
+    .main-btn { padding: 0.8rem 1.75rem; font-size: 1rem; }
+    .action-btn { padding: 0.45rem 0.75rem; font-size: 0.75rem; }
+    
     .style-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -1428,17 +1527,52 @@ body {
     border-top: 1px solid var(--border-subtle);
 }
 
-/* Responsive for new sections */
+/* Responsive for Quran, Prayer, Tasbih sections */
 @media (max-width: 640px) {
+    /* Quran Player */
     .quran-controls { flex-direction: column; }
-    .prayer-times { grid-template-columns: repeat(2, 1fr); }
-    .ayah-text { font-size: 1.4rem; }
+    .control-group { min-width: 100%; }
+    .quran-select { font-size: 0.95rem; padding: 0.7rem 0.9rem; }
+    
+    /* Audio Player */
+    .player-btn { width: 44px; height: 44px; }
+    .play-btn { width: 56px; height: 56px; }
+    .ayah-text { font-size: 1.5rem; line-height: 2.2; }
+    .bismillah { font-size: 1.3rem; }
+    .ayah-item { min-width: 40px; height: 40px; font-size: 0.85rem; }
+    
+    /* Prayer Times */
+    .prayer-times { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+    .prayer-card { padding: 0.9rem; }
+    .prayer-time { font-size: 1.2rem; }
+    
+    /* Tasbih */
+    .tasbih-count { font-size: 4.5rem; }
+    .count-btn { height: 90px; }
+    .tasbih-btn-text { font-size: 1.4rem; }
+}
+
+@media (max-width: 440px) {
+    .ayah-text { font-size: 1.35rem; }
     .tasbih-count { font-size: 4rem; }
 }
 
 @media (max-width: 380px) {
+    /* Quran Player */
+    .ayah-text { font-size: 1.2rem; line-height: 2; }
+    .bismillah { font-size: 1.1rem; }
+    .ayah-item { min-width: 38px; height: 38px; }
+    .surah-info { flex-direction: column; gap: 0.5rem; font-size: 0.8rem; }
+    
+    /* Prayer Times */
     .prayer-times { grid-template-columns: 1fr; }
-    .surah-info { flex-direction: column; gap: 0.5rem; }
+    .prayer-card { padding: 0.8rem; }
+    
+    /* Tasbih */
+    .tasbih-count { font-size: 3.5rem; }
+    .count-btn { height: 80px; }
+    .tasbih-btn-text { font-size: 1.2rem; }
+    .dhikr-preset { padding: 0.45rem 0.85rem; font-size: 0.85rem; }
 }
 
 /* ============ 99 Names of Allah Section ============ */
@@ -1754,19 +1888,74 @@ body {
     justify-content: center;
 }
 
-/* Responsive for new sections */
+/* Responsive for Names, Hadith, Qibla sections */
 @media (max-width: 640px) {
-    .name-arabic { font-size: 2.5rem; }
-    .hadith-text { font-size: 1.1rem; }
+    /* 99 Names */
+    .name-card { padding: 1.75rem 1.5rem; }
+    .name-arabic { font-size: 2.6rem; }
+    .name-transliteration { font-size: 1rem; }
+    .name-meaning { font-size: 1.1rem; }
+    .name-description { font-size: 0.85rem; }
+    .name-btn { 
+        padding: 0.65rem 1.1rem; 
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+    .name-item { min-width: 42px; height: 42px; font-size: 0.85rem; }
+    
+    /* Hadith */
+    .hadith-text { font-size: 1.2rem; line-height: 2.1; }
+    .hadith-narrator { font-size: 0.85rem; }
+    .hadith-btn { 
+        padding: 0.65rem 1.1rem; 
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+    
+    /* Qibla */
+    .compass-container { width: 170px; height: 170px; }
+    .qibla-angle { font-size: 2.2rem; }
+    .qibla-text { font-size: 0.95rem; }
+    .location-text { font-size: 0.8rem; }
+}
+
+@media (max-width: 440px) {
+    .name-arabic { font-size: 2.4rem; }
+    .hadith-text { font-size: 1.15rem; }
     .compass-container { width: 160px; height: 160px; }
-    .qibla-angle { font-size: 2rem; }
 }
 
 @media (max-width: 380px) {
-    .names-controls { flex-wrap: wrap; }
-    .name-btn { flex: 1; justify-content: center; }
-    .hadith-controls { flex-direction: column; }
-    .hadith-btn { width: 100%; justify-content: center; }
+    /* 99 Names */
+    .name-card { padding: 1.5rem 1rem; }
+    .name-arabic { font-size: 2.2rem; }
+    .name-transliteration { font-size: 0.95rem; }
+    .name-meaning { font-size: 1rem; }
+    .name-description { font-size: 0.8rem; line-height: 1.7; }
+    .names-controls { flex-wrap: wrap; gap: 0.5rem; }
+    .name-btn { 
+        flex: 1; 
+        justify-content: center;
+        min-width: calc(50% - 0.25rem);
+        font-size: 0.85rem;
+        padding: 0.6rem 0.9rem;
+    }
+    .name-item { min-width: 40px; height: 40px; }
+    
+    /* Hadith */
+    .hadith-text { font-size: 1.05rem; line-height: 2; }
+    .hadith-narrator { font-size: 0.8rem; }
+    .hadith-controls { flex-direction: column; gap: 0.5rem; }
+    .hadith-btn { 
+        width: 100%; 
+        justify-content: center;
+        font-size: 0.85rem;
+    }
+    
+    /* Qibla */
+    .compass-container { width: 150px; height: 150px; }
+    .qibla-angle { font-size: 2rem; }
+    .direction-n, .direction-e, .direction-s, .direction-w { font-size: 0.75rem; }
 }
 
 

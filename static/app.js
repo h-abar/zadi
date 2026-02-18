@@ -1039,7 +1039,7 @@ function toggleMushaf() {
     chevron.classList.toggle('open');
 
     // Load surah list on first open
-    if (content.classList.contains('open') && !document.getElementById('mushafSurahSelect').children.length > 1) {
+    if (content.classList.contains('open') && document.getElementById('mushafSurahSelect').children.length <= 1) {
         loadMushafSurahList();
     }
 }
