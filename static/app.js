@@ -690,8 +690,11 @@ function nextAyah() {
         currentAyahIndex++;
         displayAyah(currentAyahIndex);
         if (isPlaying) {
-            setTimeout(() => togglePlay(), 100);
+            // Small delay to allow display update before playing
+            setTimeout(() => togglePlay(), 50);
         }
+        // Preload the next ayah for smooth transition
+        setTimeout(() => preloadNextAyah(), 200);
     }
 }
 
@@ -700,8 +703,9 @@ function prevAyah() {
         currentAyahIndex--;
         displayAyah(currentAyahIndex);
         if (isPlaying) {
-            setTimeout(() => togglePlay(), 100);
+            setTimeout(() => togglePlay(), 50);
         }
+        setTimeout(() => preloadNextAyah(), 200);
     }
 }
 
@@ -719,21 +723,61 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('pause', () => { isPlaying = false; updatePlayButton(); });
     audio.addEventListener('ended', () => {
         if (currentAyahIndex < ayahsData.length - 1) {
-            nextAyah();
+            // Auto-advance to next ayah with minimal delay
+            setTimeout(() => {
+                nextAyah();
+                // Preload next audio after transitioning
+                preloadNextAyah();
+            }, 100);
         } else if (isRepeat) {
+            // Repeat from beginning
             currentAyahIndex = 0;
             displayAyah(0);
-            setTimeout(() => togglePlay(), 100);
+            setTimeout(() => {
+                togglePlay();
+                preloadNextAyah();
+            }, 100);
+        } else {
+            isPlaying = false;
+            updatePlayButton();
         }
     });
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('loadedmetadata', () => {
         document.getElementById('totalTime').textContent = formatTime(audio.duration);
     });
+    audio.addEventListener('canplay', () => {
+        // Auto-play when ready if we were playing
+        if (isPlaying && audio.paused) {
+            audio.play().catch(() => {});
+        }
+    });
 
     // Load banner dates on page load
     loadBannerDates();
 });
+
+// Preload next ayah audio for seamless transitions
+let preloadedAudio = null;
+
+function preloadNextAyah() {
+    if (currentAyahIndex < ayahsData.length - 1) {
+        const nextIndex = currentAyahIndex + 1;
+        const reciter = document.getElementById('reciterSelect').value;
+        const nextAyah = ayahsData[nextIndex];
+        if (!nextAyah || !currentSurah) return;
+
+        const surahStr = String(currentSurah.number).padStart(3, '0');
+        const ayahStr = String(nextAyah.number).padStart(3, '0');
+        const nextAudioUrl = `https://everyayah.com/data/${reciter}/${surahStr}${ayahStr}.mp3`;
+
+        // Create a hidden audio element to preload
+        preloadedAudio = new Audio();
+        preloadedAudio.preload = 'auto';
+        preloadedAudio.src = nextAudioUrl;
+        preloadedAudio.load();
+    }
+}
 
 function updateProgress() {
     const audio = document.getElementById('quranAudio');
@@ -810,6 +854,193 @@ async function loadBannerDates() {
             const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
             gregorianBanner.textContent = now.toLocaleDateString('en-US', options);
         }
+    }
+}
+
+// ============ Full Quran Reading (Mushaf) ============
+
+let currentMushafSurah = null;
+let currentMushafPage = 1;
+let mushafAyahsData = [];
+let allSurahsData = [];
+
+// Mushaf page mapping (approximate pages for each surah start)
+const MUSHAF_PAGES = {
+    1: 1, 2: 2, 3: 50, 4: 77, 5: 106, 6: 128, 7: 151, 8: 177, 9: 187,
+    10: 208, 11: 221, 12: 235, 13: 249, 14: 255, 15: 262, 16: 267, 17: 282, 18: 293, 19: 305,
+    20: 312, 21: 322, 22: 332, 23: 342, 24: 350, 25: 359, 26: 367, 27: 377, 28: 385, 29: 396,
+    30: 404, 31: 411, 32: 415, 33: 418, 34: 428, 35: 434, 36: 440, 37: 446, 38: 453, 39: 458,
+    40: 467, 41: 477, 42: 483, 43: 489, 44: 496, 45: 499, 46: 502, 47: 507, 48: 511, 49: 515,
+    50: 518, 51: 520, 52: 523, 53: 526, 54: 528, 55: 531, 56: 534, 57: 537, 58: 542, 59: 545,
+    60: 549, 61: 551, 62: 553, 63: 554, 64: 556, 65: 558, 66: 560, 67: 562, 68: 564, 69: 566,
+    70: 568, 71: 570, 72: 572, 73: 574, 74: 575, 75: 577, 76: 578, 77: 580, 78: 582, 79: 583,
+    80: 585, 81: 586, 82: 587, 83: 587, 84: 589, 85: 590, 86: 591, 87: 591, 88: 592, 89: 593,
+    90: 594, 91: 594, 92: 595, 93: 595, 94: 596, 95: 596, 96: 597, 97: 597, 98: 598, 99: 598,
+    100: 599, 101: 599, 102: 600, 103: 600, 104: 600, 105: 601, 106: 601, 107: 601, 108: 602, 109: 602,
+    110: 602, 111: 603, 112: 603, 113: 603, 114: 604
+};
+
+async function loadMushafSurahList() {
+    try {
+        const res = await fetch(`${QURAN_API}/surah`);
+        const data = await res.json();
+        allSurahsData = data.data;
+
+        // Populate select
+        const select = document.getElementById('mushafSurahSelect');
+        data.data.forEach(surah => {
+            const option = document.createElement('option');
+            option.value = surah.number;
+            option.textContent = `${surah.number}. ${surah.name} (${surah.englishName}) - ${surah.numberOfAyahs} آية`;
+            select.appendChild(option);
+        });
+
+        // Render grid
+        renderSurahGrid();
+    } catch (err) {
+        console.error('Failed to load mushaf surah list:', err);
+    }
+}
+
+function renderSurahGrid() {
+    const grid = document.getElementById('surahGrid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+    allSurahsData.forEach(surah => {
+        const item = document.createElement('div');
+        item.className = 'surah-grid-item';
+        const revelationType = surah.revelationType === 'Meccan' ? 'مكية' : 'مدنية';
+        item.innerHTML = `
+            <span class="surah-number">${surah.number}</span>
+            <span class="surah-name-grid">${surah.name}</span>
+            <span class="surah-info-grid">${revelationType} • ${surah.numberOfAyahs} آية</span>
+        `;
+        item.onclick = () => {
+            document.getElementById('mushafSurahSelect').value = surah.number;
+            loadMushafSurah();
+        };
+        grid.appendChild(item);
+    });
+}
+
+async function loadMushafSurah() {
+    const surahNum = document.getElementById('mushafSurahSelect').value;
+    if (!surahNum) return;
+
+    try {
+        const res = await fetch(`${QURAN_API}/surah/${surahNum}`);
+        const data = await res.json();
+
+        mushafAyahsData = data.data.ayahs;
+        currentMushafSurah = {
+            number: data.data.number,
+            name: data.data.name,
+            englishName: data.data.englishName,
+            numberOfAyahs: data.data.numberOfAyahs,
+            revelationType: data.data.revelationType
+        };
+
+        // Update current page based on surah
+        currentMushafPage = MUSHAF_PAGES[surahNum] || 1;
+
+        renderMushaf();
+        updateMushafNavButtons();
+
+    } catch (err) {
+        console.error('Failed to load mushaf surah:', err);
+        showToast('حدث خطأ في تحميل السورة');
+    }
+}
+
+function renderMushaf() {
+    if (!currentMushafSurah) return;
+
+    const header = document.getElementById('mushafHeader');
+    const bismillah = document.getElementById('mushafBismillah');
+    const textContainer = document.getElementById('mushafText');
+    const pageNumber = document.getElementById('mushafPageNumber');
+    const juzInfo = document.getElementById('mushafJuzInfo');
+
+    // Update header
+    const revelationType = currentMushafSurah.revelationType === 'Meccan' ? 'مكية' : 'مدنية';
+    document.getElementById('mushafSurahName').textContent = `${currentMushafSurah.name} (${currentMushafSurah.englishName})`;
+
+    // Hide bismillah for Surah At-Tawbah (9)
+    bismillah.style.display = currentMushafSurah.number === 9 ? 'none' : 'block';
+
+    // Render ayahs
+    textContainer.innerHTML = mushafAyahsData.map(ayah => `
+        <span class="mushaf-ayah">
+            ${ayah.text}
+            <span class="ayah-number-marker">${ayah.numberInSurah}</span>
+        </span>
+    `).join(' ');
+
+    // Update page number display
+    pageNumber.textContent = `صفحة ${currentMushafPage}`;
+
+    // Calculate Juz info
+    const juzNumber = Math.ceil(currentMushafPage / 20);
+    juzInfo.textContent = `الجزء ${juzNumber} • ${revelationType} • ${currentMushafSurah.numberOfAyahs} آية`;
+
+    // Update page input
+    document.getElementById('mushafPageInput').value = currentMushafPage;
+}
+
+function goToMushafPage(page) {
+    page = parseInt(page);
+    if (page < 1 || page > 604) {
+        showToast('رقم الصفحة يجب أن يكون بين 1 و 604');
+        return;
+    }
+
+    currentMushafPage = page;
+
+    // Find which surah this page belongs to
+    let targetSurah = 1;
+    for (const [surahNum, startPage] of Object.entries(MUSHAF_PAGES)) {
+        if (page >= startPage) {
+            targetSurah = parseInt(surahNum);
+        } else {
+            break;
+        }
+    }
+
+    // Load the surah
+    document.getElementById('mushafSurahSelect').value = targetSurah;
+    loadMushafSurah();
+}
+
+function nextMushafPage() {
+    if (currentMushafPage < 604) {
+        goToMushafPage(currentMushafPage + 1);
+    }
+}
+
+function prevMushafPage() {
+    if (currentMushafPage > 1) {
+        goToMushafPage(currentMushafPage - 1);
+    }
+}
+
+function updateMushafNavButtons() {
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+
+    if (prevBtn) prevBtn.disabled = currentMushafPage <= 1;
+    if (nextBtn) nextBtn.disabled = currentMushafPage >= 604;
+}
+
+function toggleMushaf() {
+    const content = document.getElementById('mushafContent');
+    const chevron = document.getElementById('mushafChevron');
+    content.classList.toggle('open');
+    chevron.classList.toggle('open');
+
+    // Load surah list on first open
+    if (content.classList.contains('open') && !document.getElementById('mushafSurahSelect').children.length > 1) {
+        loadMushafSurahList();
     }
 }
 
