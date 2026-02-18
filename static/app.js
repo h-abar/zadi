@@ -1624,3 +1624,137 @@ function updateCompass() {
     indicator.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
 }
 
+// ============ Islamic Radio Stations ============
+
+const RADIO_STATIONS = [
+    // السعودية
+    { name: "إذاعة القرآن الكريم", country: "saudi", url: "https://stream.radiojar.com/8s5u5tpdtwzuv", flag: "🇸🇦" },
+    { name: "إذاعة نداء الإسلام", country: "saudi", url: "https://radio.misk.sa:8443/stream", flag: "🇸🇦" },
+    { name: "راديو إقرأ", country: "saudi", url: "https://stream.radiojar.com/4wqre23fytzuv", flag: "🇸🇦" },
+    
+    // مصر
+    { name: "إذاعة القرآن الكريم من القاهرة", country: "egypt", url: "https://stream.radiojar.com/9wkcygq3k5zuv", flag: "🇪🇬" },
+    { name: "الإذاعة المصرية", country: "egypt", url: "https://stream.radiojar.com/4wqre22fytzuv", flag: "🇪🇬" },
+    
+    // الإمارات
+    { name: "إذاعة القرآن الكريم - الإمارات", country: "uae", url: "https://dcs-live.apis.anvato.net/server/aac/hls/dubai_quran/index.m3u8", flag: "🇦🇪" },
+    { name: "القرآن الكريم من الشارقة", country: "uae", url: "https://stream.radiojar.com/d8t5vyv7k5zuv", flag: "🇦🇪" },
+    
+    // الكويت
+    { name: "إذاعة القرآن الكريم - الكويت", country: "kuwait", url: "https://stream.radiojar.com/sv5hykw52tzuv", flag: "🇰🇼" },
+    
+    // الأردن
+    { name: "إذاعة القرآن الكريم - الأردن", country: "jordan", url: "https://jrtv-quran.secure2.footprint.net/egress/bhandler/jrtv/quran/playlist.m3u8", flag: "🇯🇴" },
+    
+    // المغرب
+    { name: "إذاعة محمد السادس للقرآن الكريم", country: "morocco", url: "https://stream.radiojar.com/qyt3a2ryfseuv", flag: "🇲🇦" },
+    
+    // تونس
+    { name: "إذاعة الزيتونة - القرآن الكريم", country: "tunisia", url: "https://stream.radiojar.com/8m6ycqyj0c9uv", flag: "🇹🇳" },
+    
+    // الجزائر
+    { name: "إذاعة القرآن الكريم - الجزائر", country: "algeria", url: "https://stream.radiojar.com/ps6ryb29d48uv", flag: "🇩🇿" },
+    
+    // قطر
+    { name: "إذاعة القرآن الكريم - قطر", country: "qatar", url: "https://stream.radiojar.com/m0shypjfuyzuv", flag: "🇶🇦" },
+    
+    // البحرين
+    { name: "إذاعة القرآن الكريم - البحرين", country: "bahrain", url: "https://stream.radiojar.com/wf5bqxrm52zuv", flag: "🇧🇭" }
+];
+
+let currentRadio = null;
+let filteredCountry = "";
+
+function toggleRadio() {
+    const content = document.getElementById('radioContent');
+    const chevron = document.getElementById('radioChevron');
+    content.classList.toggle('open');
+    chevron.classList.toggle('open');
+
+    if (content.classList.contains('open') && document.getElementById('radioGrid').children.length === 0) {
+        renderRadioStations();
+    }
+}
+
+function renderRadioStations() {
+    const grid = document.getElementById('radioGrid');
+    grid.innerHTML = '';
+
+    const stations = filteredCountry 
+        ? RADIO_STATIONS.filter(s => s.country === filteredCountry)
+        : RADIO_STATIONS;
+
+    stations.forEach((station, index) => {
+        const card = document.createElement('div');
+        card.className = 'radio-card';
+        card.innerHTML = `
+            <div class="radio-flag">${station.flag}</div>
+            <div class="radio-name">${station.name}</div>
+            <button class="radio-play-btn" onclick="toggleRadioPlay(${index})">
+                <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                </svg>
+            </button>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function filterRadiosByCountry() {
+    filteredCountry = document.getElementById('countrySelect').value;
+    renderRadioStations();
+}
+
+function toggleRadioPlay(index) {
+    const stations = filteredCountry 
+        ? RADIO_STATIONS.filter(s => s.country === filteredCountry)
+        : RADIO_STATIONS;
+    
+    const station = stations[index];
+    const radioPlayer = document.getElementById('radioPlayer');
+    const cards = document.querySelectorAll('.radio-card');
+    
+    if (currentRadio === index && !radioPlayer.paused) {
+        // Pause current radio
+        radioPlayer.pause();
+        cards[index].classList.remove('playing');
+        updateRadioPlayButton(index, false);
+    } else {
+        // Stop previous and play new
+        if (currentRadio !== null) {
+            cards[currentRadio]?.classList.remove('playing');
+            updateRadioPlayButton(currentRadio, false);
+        }
+        
+        radioPlayer.src = station.url;
+        radioPlayer.play().catch(err => {
+            console.error('Radio play error:', err);
+            showToast('خطأ في تشغيل الإذاعة');
+        });
+        
+        cards[index].classList.add('playing');
+        updateRadioPlayButton(index, true);
+        currentRadio = index;
+    }
+}
+
+function updateRadioPlayButton(index, isPlaying) {
+    const cards = document.querySelectorAll('.radio-card');
+    const playBtn = cards[index]?.querySelector('.radio-play-btn');
+    if (!playBtn) return;
+    
+    const playIcon = playBtn.querySelector('.play-icon');
+    const pauseIcon = playBtn.querySelector('.pause-icon');
+    
+    if (isPlaying) {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+    } else {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+    }
+}
+

@@ -1766,6 +1766,159 @@ button, .cat-btn, .action-btn, .player-btn, .mushaf-nav-btn, .name-btn, .hadith-
     color: var(--accent-gold);
 }
 
+/* ============ Islamic Radio Stations Section ============ */
+.radio-section {
+    margin-top: 1rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-secondary);
+}
+
+.radio-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+.radio-content.open { max-height: 3000px; }
+
+.radio-controls {
+    padding: 1rem 1.5rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.radio-select {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.radio-select:hover, .radio-select:focus {
+    border-color: var(--accent-gold);
+    outline: none;
+}
+
+.radio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(180deg, var(--bg-card), transparent);
+}
+
+.radio-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.radio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.radio-card:hover::before {
+    opacity: 0.6;
+}
+
+.radio-card:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.15);
+}
+
+.radio-card.playing {
+    border-color: var(--accent-gold);
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), var(--bg-card));
+    box-shadow: 0 4px 20px rgba(201,168,76,0.2);
+}
+
+.radio-card.playing::before {
+    opacity: 1;
+    animation: shimmer 2s infinite;
+}
+
+.radio-flag {
+    font-size: 2.5rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.radio-name {
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    line-height: 1.4;
+    min-height: 2.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.radio-play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--accent-gold);
+    border: none;
+    border-radius: 50%;
+    color: var(--bg-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(201,168,76,0.3);
+}
+
+.radio-play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(201,168,76,0.5);
+}
+
+.radio-play-btn:active {
+    transform: scale(0.95);
+}
+
+/* Responsive for Radio */
+@media (max-width: 640px) {
+    .radio-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 0.75rem;
+        padding: 1rem;
+    }
+    .radio-card {
+        padding: 1.25rem 0.75rem;
+    }
+    .radio-flag { font-size: 2.2rem; }
+    .radio-name { font-size: 0.9rem; min-height: 2.5rem; }
+}
+
+@media (max-width: 440px) {
+    .radio-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ============ Qibla Direction Section ============ */
 .qibla-section {
     margin-top: 1rem;

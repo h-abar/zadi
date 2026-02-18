@@ -256,8 +256,8 @@
                             <option value="Alafasy_128kbps">مشاري العفاسي</option>
                             <option value="Abdul_Basit_Mujawwad_128kbps">عبد الباسط عبد الصمد (مجود)</option>
                             <option value="Abdul_Basit_Murattal_128kbps">عبد الباسط عبد الصمد (مرتل)</option>
-                            <option value="Ahmed_ibn_Ali_al-Ajamy_128kbps_KetabAllah">أحمد بن علي العجمي</option>
                             <option value="Husary_128kbps">محمود خليل الحصري</option>
+                            <option value="Husary_128kbps_Mujawwad">محمود خليل الحصري (مجود)</option>
                             <option value="MaherAlMuaiqly128kbps">ماهر المعيقلي</option>
                             <option value="Minshawy_Mujawwad_128kbps">محمد صديق المنشاوي (مجود)</option>
                             <option value="Minshawy_Murattal_128kbps">محمد صديق المنشاوي (مرتل)</option>
@@ -265,17 +265,16 @@
                             <option value="Saood_ash-Shuraym_128kbps">سعود الشريم</option>
                             <option value="Abu_Bakr_Ash-Shaatree_128kbps">أبو بكر الشاطري</option>
                             <option value="Yasser_Ad-Dussary_128kbps">ياسر الدوسري</option>
-                            <option value="Ghamadi_128kbps">سعد الغامدي</option>
+                            <option value="Ghamadi_40kbps">سعد الغامدي</option>
                             <option value="Hudhaify_128kbps">علي الحذيفي</option>
-                            <option value="Ibrahim_Akhdar_128kbps">إبراهيم الأخضر</option>
-                            <option value="Khan_128kbps">عبد الله باسفر</option>
-                            <option value="Parhizgar_128kbps">شهريار برهزار</option>
-                            <option value="Sahih_Al-Bukhari_128kbps">صلاح البخاري</option>
-                            <option value="Shuraym_128kbps">سعود الشريم (رواية أخرى)</option>
-                            <option value="Siddiq_Minshawi_128kbps">سديق منشاوي (أطفال)</option>
-                            <option value="Tablawi_128kbps">محمد الطبلاوي</option>
-                            <option value="Wadee_Hammadi_128kbps">وديع حمادي</option>
-                            <option value="ayman_sowaid_128kbps">أيمن سويد</option>
+                            <option value="Ibrahim_Akhdar_32kbps">إبراهيم الأخضر</option>
+                            <option value="ahmed_ibn_ali_al_ajamy_128kbps">أحمد بن علي العجمي</option>
+                            <option value="Abdurrahmaan_As-Sudais_64kbps">عبد الرحمن السديس</option>
+                            <option value="Parhizgar_48kbps">شهريار برهزار (فارسي)</option>
+                            <option value="Mohammad_al_Tablaway_128kbps">محمد الطبلاوي</option>
+                            <option value="Muhammad_Jibreel_128kbps">محمد جبريل</option>
+                            <option value="Nasser_Alqatami_128kbps">ناصر القطامي</option>
+                            <option value="Salah_Al_Budair_128kbps">صلاح البدير</option>
                         </select>
                     </div>
                     <div class="control-group translation-group">
@@ -552,6 +551,38 @@
                         نسخ
                     </button>
                 </div>
+            </div>
+        </section>
+
+        <!-- ========== Islamic Radio Stations Section ========== -->
+        <section class="radio-section" id="radioSection">
+            <div class="section-toggle" onclick="toggleRadio()">
+                <span class="section-icon">📻</span>
+                <span>الإذاعات الإسلامية</span>
+                <svg class="chevron" id="radioChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="radio-content" id="radioContent">
+                <div class="radio-controls">
+                    <select id="countrySelect" class="radio-select" onchange="filterRadiosByCountry()">
+                        <option value="">جميع الدول</option>
+                        <option value="saudi">السعودية</option>
+                        <option value="egypt">مصر</option>
+                        <option value="uae">الإمارات</option>
+                        <option value="kuwait">الكويت</option>
+                        <option value="jordan">الأردن</option>
+                        <option value="morocco">المغرب</option>
+                        <option value="tunisia">تونس</option>
+                        <option value="algeria">الجزائر</option>
+                        <option value="qatar">قطر</option>
+                        <option value="bahrain">البحرين</option>
+                    </select>
+                </div>
+                <div class="radio-grid" id="radioGrid">
+                    <!-- Radio stations will be inserted here -->
+                </div>
+                <audio id="radioPlayer" preload="none"></audio>
             </div>
         </section>
 
