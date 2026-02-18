@@ -1,0 +1,45 @@
+{
+  "name": "زادي - تطبيق إسلامي شامل",
+  "short_name": "زادي",
+  "description": "أذكار يومية، قرآن كريم، مواقيت الصلاة، مسبحة، أسماء الله الحسنى، أحاديث، قبلة، إذاعات إسلامية",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1628",
+  "theme_color": "#0a1628",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%230a1628' rx='24'/><text y='140' x='96' font-size='120' text-anchor='middle'>🕌</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230a1628' rx='64'/><text y='380' x='256' font-size='320' text-anchor='middle'>🕌</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "lifestyle", "religion"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "أذكار اليوم",
+      "url": "/#dhikr",
+      "description": "أذكار يومية مأثورة"
+    },
+    {
+      "name": "القرآن الكريم",
+      "url": "/#quran",
+      "description": "استماع وقراءة القرآن"
+    },
+    {
+      "name": "مواقيت الصلاة",
+      "url": "/#prayer",
+      "description": "أوقات الصلاة لمنطقتك"
+    }
+  ]
+}

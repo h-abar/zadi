@@ -690,11 +690,10 @@ function nextAyah() {
         currentAyahIndex++;
         displayAyah(currentAyahIndex);
         if (isPlaying) {
-            // Small delay to allow display update before playing
-            setTimeout(() => togglePlay(), 50);
+            const audio = document.getElementById('quranAudio');
+            audio.play().catch(() => {});
         }
-        // Preload the next ayah for smooth transition
-        setTimeout(() => preloadNextAyah(), 200);
+        setTimeout(() => preloadNextAyah(), 300);
     }
 }
 
@@ -703,9 +702,10 @@ function prevAyah() {
         currentAyahIndex--;
         displayAyah(currentAyahIndex);
         if (isPlaying) {
-            setTimeout(() => togglePlay(), 50);
+            const audio = document.getElementById('quranAudio');
+            audio.play().catch(() => {});
         }
-        setTimeout(() => preloadNextAyah(), 200);
+        setTimeout(() => preloadNextAyah(), 300);
     }
 }
 
@@ -723,20 +723,16 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('pause', () => { isPlaying = false; updatePlayButton(); });
     audio.addEventListener('ended', () => {
         if (currentAyahIndex < ayahsData.length - 1) {
-            // Auto-advance to next ayah with minimal delay
-            setTimeout(() => {
-                nextAyah();
-                // Preload next audio after transitioning
-                preloadNextAyah();
-            }, 100);
+            currentAyahIndex++;
+            displayAyah(currentAyahIndex);
+            // Play immediately without toggle
+            audio.play().catch(() => {});
+            setTimeout(() => preloadNextAyah(), 300);
         } else if (isRepeat) {
-            // Repeat from beginning
             currentAyahIndex = 0;
             displayAyah(0);
-            setTimeout(() => {
-                togglePlay();
-                preloadNextAyah();
-            }, 100);
+            audio.play().catch(() => {});
+            setTimeout(() => preloadNextAyah(), 300);
         } else {
             isPlaying = false;
             updatePlayButton();
@@ -1628,38 +1624,42 @@ function updateCompass() {
 
 const RADIO_STATIONS = [
     // السعودية
-    { name: "إذاعة القرآن الكريم", country: "saudi", url: "https://stream.radiojar.com/8s5u5tpdtwzuv", flag: "🇸🇦" },
-    { name: "إذاعة نداء الإسلام", country: "saudi", url: "https://radio.misk.sa:8443/stream", flag: "🇸🇦" },
-    { name: "راديو إقرأ", country: "saudi", url: "https://stream.radiojar.com/4wqre23fytzuv", flag: "🇸🇦" },
-    
+    { name: "إذاعة القرآن الكريم - السعودية", country: "saudi", url: "https://stream.radiojar.com/8s5u5tpdtwzuv", flag: "🇸🇦" },
+    { name: "إذاعة نداء الإسلام", country: "saudi", url: "https://n01.radiojar.com/nidaa.mp3", flag: "🇸🇦" },
+    { name: "راديو إقرأ", country: "saudi", url: "https://iqraaradio.out.airtime.pro/iqraaradio_a", flag: "🇸🇦" },
+
     // مصر
-    { name: "إذاعة القرآن الكريم من القاهرة", country: "egypt", url: "https://stream.radiojar.com/9wkcygq3k5zuv", flag: "🇪🇬" },
-    { name: "الإذاعة المصرية", country: "egypt", url: "https://stream.radiojar.com/4wqre22fytzuv", flag: "🇪🇬" },
-    
+    { name: "إذاعة القرآن الكريم - مصر", country: "egypt", url: "https://stream.radiojar.com/9wkcygq3k5zuv", flag: "🇪🇬" },
+    { name: "إذاعة القرآن الكريم المصرية", country: "egypt", url: "https://egradio.out.airtime.pro/egradio_b", flag: "🇪🇬" },
+
     // الإمارات
-    { name: "إذاعة القرآن الكريم - الإمارات", country: "uae", url: "https://dcs-live.apis.anvato.net/server/aac/hls/dubai_quran/index.m3u8", flag: "🇦🇪" },
-    { name: "القرآن الكريم من الشارقة", country: "uae", url: "https://stream.radiojar.com/d8t5vyv7k5zuv", flag: "🇦🇪" },
-    
+    { name: "إذاعة القرآن الكريم - دبي", country: "uae", url: "https://n01.radiojar.com/qurandubai.mp3", flag: "🇦🇪" },
+    { name: "إذاعة القرآن الكريم - الشارقة", country: "uae", url: "https://shar.out.airtime.pro/shar_a", flag: "🇦🇪" },
+
     // الكويت
-    { name: "إذاعة القرآن الكريم - الكويت", country: "kuwait", url: "https://stream.radiojar.com/sv5hykw52tzuv", flag: "🇰🇼" },
-    
+    { name: "إذاعة القرآن الكريم - الكويت", country: "kuwait", url: "https://n01.radiojar.com/quran.kw.mp3", flag: "🇰🇼" },
+
     // الأردن
-    { name: "إذاعة القرآن الكريم - الأردن", country: "jordan", url: "https://jrtv-quran.secure2.footprint.net/egress/bhandler/jrtv/quran/playlist.m3u8", flag: "🇯🇴" },
-    
+    { name: "إذاعة القرآن الكريم - الأردن", country: "jordan", url: "https://n01.radiojar.com/quran.jo.mp3", flag: "🇯🇴" },
+
     // المغرب
-    { name: "إذاعة محمد السادس للقرآن الكريم", country: "morocco", url: "https://stream.radiojar.com/qyt3a2ryfseuv", flag: "🇲🇦" },
-    
+    { name: "إذاعة محمد السادس للقرآن", country: "morocco", url: "https://n01.radiojar.com/quran.ma.mp3", flag: "🇲🇦" },
+
     // تونس
-    { name: "إذاعة الزيتونة - القرآن الكريم", country: "tunisia", url: "https://stream.radiojar.com/8m6ycqyj0c9uv", flag: "🇹🇳" },
-    
+    { name: "إذاعة الزيتونة - تونس", country: "tunisia", url: "https://n01.radiojar.com/zitouna.mp3", flag: "🇹🇳" },
+
     // الجزائر
-    { name: "إذاعة القرآن الكريم - الجزائر", country: "algeria", url: "https://stream.radiojar.com/ps6ryb29d48uv", flag: "🇩🇿" },
-    
+    { name: "إذاعة القرآن الكريم - الجزائر", country: "algeria", url: "https://n01.radiojar.com/quran.dz.mp3", flag: "🇩🇿" },
+
     // قطر
-    { name: "إذاعة القرآن الكريم - قطر", country: "qatar", url: "https://stream.radiojar.com/m0shypjfuyzuv", flag: "🇶🇦" },
-    
+    { name: "إذاعة القرآن الكريم - قطر", country: "qatar", url: "https://n01.radiojar.com/quran.qa.mp3", flag: "🇶🇦" },
+
     // البحرين
-    { name: "إذاعة القرآن الكريم - البحرين", country: "bahrain", url: "https://stream.radiojar.com/wf5bqxrm52zuv", flag: "🇧🇭" }
+    { name: "إذاعة القرآن الكريم - البحرين", country: "bahrain", url: "https://n01.radiojar.com/quran.bh.mp3", flag: "🇧🇭" },
+
+    // دولية
+    { name: "Quran Radio (دولي)", country: "international", url: "https://stream.radiojar.com/0tpy1h0kxtzuv", flag: "�" },
+    { name: "Islam Channel Radio", country: "international", url: "https://islamchannel.out.airtime.pro/islamchannel_a", flag: "�" }
 ];
 
 let currentRadio = null;
