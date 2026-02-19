@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.zadi.app",
+    "sha256_cert_fingerprints": ["36:21:C9:EB:04:E6:64:52:A7:08:FF:05:75:8B:40:1A:88:B4:31:47:5D:8E:1D:AF:EE:AA:E6:FA:9C:83:C1:31"]
+  }
+}]

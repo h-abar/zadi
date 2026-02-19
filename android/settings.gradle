@@ -1,0 +1,2 @@
+rootProject.name = "zadi"
+include ':app'

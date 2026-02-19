@@ -560,6 +560,12 @@ func main() {
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/", wwwRedirect(fs))
 
+	// Serve assetlinks.json for TWA Android app verification
+	http.HandleFunc("/.well-known/assetlinks.json", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		http.ServeFile(w, r, "static/.well-known/assetlinks.json")
+	})
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
