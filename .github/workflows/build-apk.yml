@@ -32,7 +32,7 @@ jobs:
       - name: Build Release APK
         working-directory: android
         env:
-          KEYSTORE_PATH: app/keystore.jks
+          KEYSTORE_PATH: keystore.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
@@ -47,7 +47,7 @@ jobs:
       - name: Build Release AAB (for Google Play)
         working-directory: android
         env:
-          KEYSTORE_PATH: app/keystore.jks
+          KEYSTORE_PATH: keystore.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
