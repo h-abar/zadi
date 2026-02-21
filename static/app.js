@@ -1625,16 +1625,18 @@ function updateCompass() {
 const RADIO_STATIONS = [
     // السعودية
     { name: "إذاعة القرآن الكريم - السعودية", country: "saudi", url: "https://stream.radiojar.com/8s5u5tpdtwzuv", flag: "🇸🇦" },
-    { name: "إذاعة نداء الإسلام", country: "saudi", url: "https://n01.radiojar.com/nidaa.mp3", flag: "🇸🇦" },
-    { name: "راديو إقرأ", country: "saudi", url: "https://iqraaradio.out.airtime.pro/iqraaradio_a", flag: "🇸🇦" },
+    { name: "إذاعة نداء الإسلام - مكة", country: "saudi", url: "https://n01.radiojar.com/nidaa.mp3", flag: "🇸🇦" },
+    { name: "راديو إقرأ", country: "saudi", url: "https://live.pcradio.ru/Iqraa", flag: "🇸🇦" },
+    { name: "إذاعة القرآن الكريم - السعودية 2", country: "saudi", url: "https://qurango.net/radio/tafseer", flag: "🇸🇦" },
 
     // مصر
     { name: "إذاعة القرآن الكريم - مصر", country: "egypt", url: "https://stream.radiojar.com/9wkcygq3k5zuv", flag: "🇪🇬" },
-    { name: "إذاعة القرآن الكريم المصرية", country: "egypt", url: "https://egradio.out.airtime.pro/egradio_b", flag: "🇪🇬" },
+    { name: "إذاعة القرآن الكريم المصرية", country: "egypt", url: "https://stream.zeno.fm/0r0xa792kwzuv", flag: "🇪🇬" },
+    { name: "إذاعة صوت القرآن - مصر", country: "egypt", url: "https://n01.radiojar.com/quran.eg.mp3", flag: "🇪🇬" },
 
     // الإمارات
     { name: "إذاعة القرآن الكريم - دبي", country: "uae", url: "https://n01.radiojar.com/qurandubai.mp3", flag: "🇦🇪" },
-    { name: "إذاعة القرآن الكريم - الشارقة", country: "uae", url: "https://shar.out.airtime.pro/shar_a", flag: "🇦🇪" },
+    { name: "إذاعة القرآن الكريم - الشارقة", country: "uae", url: "https://stream.zeno.fm/yn65m6qnk5zuv", flag: "🇦🇪" },
 
     // الكويت
     { name: "إذاعة القرآن الكريم - الكويت", country: "kuwait", url: "https://n01.radiojar.com/quran.kw.mp3", flag: "🇰🇼" },
@@ -1658,8 +1660,9 @@ const RADIO_STATIONS = [
     { name: "إذاعة القرآن الكريم - البحرين", country: "bahrain", url: "https://n01.radiojar.com/quran.bh.mp3", flag: "🇧🇭" },
 
     // دولية
-    { name: "Quran Radio (دولي)", country: "international", url: "https://stream.radiojar.com/0tpy1h0kxtzuv", flag: "�" },
-    { name: "Islam Channel Radio", country: "international", url: "https://islamchannel.out.airtime.pro/islamchannel_a", flag: "�" }
+    { name: "Quran Radio (دولي)", country: "international", url: "https://stream.radiojar.com/0tpy1h0kxtzuv", flag: "🌍" },
+    { name: "Islam Channel Radio", country: "international", url: "https://stream.zeno.fm/2pf2zbxr0m8uv", flag: "🌍" },
+    { name: "Radio Quran (دولي)", country: "international", url: "https://qurango.net/radio/quran", flag: "🌍" }
 ];
 
 let currentRadio = null;
@@ -1689,12 +1692,18 @@ function renderRadioStations() {
         card.className = 'radio-card';
         card.innerHTML = `
             <div class="radio-flag">${station.flag}</div>
-            <div class="radio-name">${station.name}</div>
+            <div class="radio-info">
+                <div class="radio-name">${station.name}</div>
+                <div class="radio-status">اضغط للتشغيل</div>
+            </div>
+            <div class="radio-equalizer">
+                <span></span><span></span><span></span><span></span>
+            </div>
             <button class="radio-play-btn" onclick="toggleRadioPlay(${index})">
-                <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg class="play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M8 5v14l11-7z"/>
                 </svg>
-                <svg class="pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <svg class="pause-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
                     <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
                 </svg>
             </button>
@@ -1718,27 +1727,40 @@ function toggleRadioPlay(index) {
     const cards = document.querySelectorAll('.radio-card');
     
     if (currentRadio === index && !radioPlayer.paused) {
-        // Pause current radio
         radioPlayer.pause();
         cards[index].classList.remove('playing');
         updateRadioPlayButton(index, false);
+        updateRadioStatus(index, 'اضغط للتشغيل');
     } else {
-        // Stop previous and play new
         if (currentRadio !== null) {
             cards[currentRadio]?.classList.remove('playing');
             updateRadioPlayButton(currentRadio, false);
+            updateRadioStatus(currentRadio, 'اضغط للتشغيل');
         }
         
+        updateRadioStatus(index, 'جاري التحميل...');
         radioPlayer.src = station.url;
-        radioPlayer.play().catch(err => {
+        radioPlayer.load();
+        radioPlayer.play().then(() => {
+            updateRadioStatus(index, '🔴 يبث الآن');
+        }).catch(err => {
             console.error('Radio play error:', err);
-            showToast('خطأ في تشغيل الإذاعة');
+            cards[index].classList.remove('playing');
+            updateRadioPlayButton(index, false);
+            updateRadioStatus(index, '⚠️ تعذر التشغيل');
+            showToast('تعذر تشغيل هذه الإذاعة، جرب إذاعة أخرى');
         });
         
         cards[index].classList.add('playing');
         updateRadioPlayButton(index, true);
         currentRadio = index;
     }
+}
+
+function updateRadioStatus(index, text) {
+    const cards = document.querySelectorAll('.radio-card');
+    const status = cards[index]?.querySelector('.radio-status');
+    if (status) status.textContent = text;
 }
 
 function updateRadioPlayButton(index, isPlaying) {
