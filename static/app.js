@@ -473,6 +473,24 @@ function showToast(message) {
     setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
+// ============ Hajj & Umrah ============
+
+function toggleHajj() {
+    const content = document.getElementById('hajjContent');
+    const chevron = document.getElementById('hajjChevron');
+    content.classList.toggle('open');
+    chevron.classList.toggle('open');
+}
+
+function switchHajjTab(tabName, btn) {
+    document.querySelectorAll('.hajj-tab-content').forEach(t => t.style.display = 'none');
+    document.querySelectorAll('.hajj-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tabMap = { umrah: 'umrahTab', hajj: 'hajjTab', dua: 'duaTab', tips: 'tipsTab' };
+    const tab = document.getElementById(tabMap[tabName]);
+    if (tab) tab.style.display = 'block';
+}
+
 // ============ API Toggle ============
 
 function toggleAPI() {

@@ -646,6 +646,231 @@
             </div>
         </section>
 
+        <!-- ========== Hajj & Umrah Section ========== -->
+        <section class="hajj-section" id="hajjSection">
+            <div class="section-toggle" onclick="toggleHajj()">
+                <span class="section-icon">🕋</span>
+                <span>دليل الحج والعمرة</span>
+                <svg class="chevron" id="hajjChevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+            <div class="hajj-content" id="hajjContent">
+                <!-- Tab Switcher -->
+                <div class="hajj-tabs">
+                    <button class="hajj-tab active" onclick="switchHajjTab('umrah', this)">🕌 العمرة</button>
+                    <button class="hajj-tab" onclick="switchHajjTab('hajj', this)">🕋 الحج</button>
+                    <button class="hajj-tab" onclick="switchHajjTab('dua', this)">🤲 أدعية</button>
+                    <button class="hajj-tab" onclick="switchHajjTab('tips', this)">💡 نصائح</button>
+                </div>
+
+                <!-- Umrah Steps -->
+                <div class="hajj-tab-content" id="umrahTab">
+                    <div class="hajj-intro">
+                        <div class="hajj-intro-icon">🕌</div>
+                        <h3>خطوات أداء العمرة</h3>
+                        <p>العمرة هي زيارة بيت الله الحرام لأداء مناسك خاصة في أي وقت من السنة</p>
+                    </div>
+                    <div class="hajj-steps">
+                        <div class="hajj-step">
+                            <div class="step-number">١</div>
+                            <div class="step-content">
+                                <h4>الإحرام</h4>
+                                <p>الاغتسال والتطيب، لبس ملابس الإحرام (إزار ورداء أبيضين للرجال)، ثم النية والتلبية: <strong>"لبيك اللهم عمرة"</strong></p>
+                                <div class="step-dua">لبيك اللهم لبيك، لبيك لا شريك لك لبيك، إن الحمد والنعمة لك والملك، لا شريك لك</div>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">٢</div>
+                            <div class="step-content">
+                                <h4>الطواف</h4>
+                                <p>الطواف حول الكعبة <strong>سبعة أشواط</strong> بدءاً من الحجر الأسود، مع الدعاء والذكر. يُستحب الاضطباع والرمل في الأشواط الثلاثة الأولى للرجال.</p>
+                                <div class="step-dua">ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار</div>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">٣</div>
+                            <div class="step-content">
+                                <h4>صلاة ركعتين خلف مقام إبراهيم</h4>
+                                <p>بعد الطواف، صلاة ركعتين خلف المقام أو في أي مكان من المسجد. يُقرأ في الأولى سورة الكافرون وفي الثانية سورة الإخلاص.</p>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">٤</div>
+                            <div class="step-content">
+                                <h4>الشرب من ماء زمزم</h4>
+                                <p>التوجه إلى ماء زمزم والشرب منه والدعاء، فإن ماء زمزم لما شُرب له.</p>
+                                <div class="step-dua">اللهم إني أسألك علماً نافعاً ورزقاً واسعاً وشفاءً من كل داء</div>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">٥</div>
+                            <div class="step-content">
+                                <h4>السعي بين الصفا والمروة</h4>
+                                <p>السعي <strong>سبعة أشواط</strong> بدءاً من الصفا وانتهاءً بالمروة. يُستحب الإسراع بين العلمين الأخضرين للرجال.</p>
+                                <div class="step-dua">إن الصفا والمروة من شعائر الله — أبدأ بما بدأ الله به</div>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">٦</div>
+                            <div class="step-content">
+                                <h4>الحلق أو التقصير</h4>
+                                <p>للرجال: <strong>الحلق</strong> (أفضل) أو التقصير. للنساء: قص أطراف الشعر بقدر أنملة. وبذلك تتم العمرة ويحل المعتمر من إحرامه.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hajj Steps -->
+                <div class="hajj-tab-content" id="hajjTab" style="display:none;">
+                    <div class="hajj-intro">
+                        <div class="hajj-intro-icon">🕋</div>
+                        <h3>أركان ومناسك الحج</h3>
+                        <p>الحج ركن من أركان الإسلام، فُرض مرة في العمر على المستطيع</p>
+                    </div>
+                    <div class="hajj-steps">
+                        <div class="hajj-step">
+                            <div class="step-number">٨</div>
+                            <div class="step-content">
+                                <h4>يوم التروية (٨ ذو الحجة)</h4>
+                                <p>الإحرام بالحج من مكة والتوجه إلى <strong>منى</strong>. صلاة الظهر والعصر والمغرب والعشاء والفجر قصراً بدون جمع. المبيت في منى.</p>
+                                <div class="step-dua">لبيك اللهم حجاً، لبيك اللهم لبيك</div>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">٩</div>
+                            <div class="step-content">
+                                <h4>يوم عرفة (٩ ذو الحجة)</h4>
+                                <p>الركن الأعظم! التوجه إلى <strong>عرفة</strong> بعد الشروق، والوقوف بها حتى الغروب مع الإكثار من الدعاء والذكر. يُجمع الظهر والعصر جمع تقديم.</p>
+                                <div class="step-dua">خير الدعاء دعاء يوم عرفة، وخير ما قلت أنا والنبيون من قبلي: لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير</div>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">١٠</div>
+                            <div class="step-content">
+                                <h4>يوم النحر (١٠ ذو الحجة)</h4>
+                                <p>الانصراف من مزدلفة إلى منى. أعمال هذا اليوم بالترتيب:</p>
+                                <ul class="step-list">
+                                    <li>رمي جمرة العقبة الكبرى (٧ حصيات)</li>
+                                    <li>ذبح الهدي</li>
+                                    <li>الحلق أو التقصير (التحلل الأول)</li>
+                                    <li>طواف الإفاضة + السعي (التحلل الثاني)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">١١-١٣</div>
+                            <div class="step-content">
+                                <h4>أيام التشريق</h4>
+                                <p>المبيت في <strong>منى</strong> ورمي الجمرات الثلاث كل يوم بعد الزوال (٧ حصيات لكل جمرة). يجوز التعجل في يومين لمن أراد.</p>
+                                <div class="step-dua">الله أكبر، الله أكبر، لا إله إلا الله، والله أكبر، الله أكبر ولله الحمد</div>
+                            </div>
+                        </div>
+                        <div class="hajj-step">
+                            <div class="step-number">✓</div>
+                            <div class="step-content">
+                                <h4>طواف الوداع</h4>
+                                <p>آخر ما يفعله الحاج قبل مغادرة مكة. الطواف حول الكعبة سبعة أشواط بدون رمل أو اضطباع. يُعفى منه الحائض والنفساء.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duas -->
+                <div class="hajj-tab-content" id="duaTab" style="display:none;">
+                    <div class="hajj-intro">
+                        <div class="hajj-intro-icon">🤲</div>
+                        <h3>أدعية الحج والعمرة</h3>
+                        <p>أدعية مأثورة من السنة النبوية</p>
+                    </div>
+                    <div class="dua-cards" id="duaCards">
+                        <div class="dua-card">
+                            <div class="dua-title">🌙 دعاء الإحرام والتلبية</div>
+                            <div class="dua-text">لبيك اللهم لبيك، لبيك لا شريك لك لبيك، إن الحمد والنعمة لك والملك، لا شريك لك</div>
+                        </div>
+                        <div class="dua-card">
+                            <div class="dua-title">🕋 دعاء رؤية الكعبة</div>
+                            <div class="dua-text">اللهم زد هذا البيت تشريفاً وتعظيماً وتكريماً ومهابة، وزد من شرّفه وكرّمه ممن حجّه أو اعتمره تشريفاً وتكريماً وتعظيماً وبراً</div>
+                        </div>
+                        <div class="dua-card">
+                            <div class="dua-title">⚫ دعاء استلام الحجر الأسود</div>
+                            <div class="dua-text">بسم الله والله أكبر، اللهم إيماناً بك وتصديقاً بكتابك ووفاءً بعهدك واتباعاً لسنة نبيك محمد ﷺ</div>
+                        </div>
+                        <div class="dua-card">
+                            <div class="dua-title">🔄 دعاء بين الركن اليماني والحجر الأسود</div>
+                            <div class="dua-text">ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة وقنا عذاب النار</div>
+                        </div>
+                        <div class="dua-card">
+                            <div class="dua-title">⛰️ دعاء الصفا والمروة</div>
+                            <div class="dua-text">لا إله إلا الله وحده لا شريك له، له الملك وله الحمد يحيي ويميت وهو على كل شيء قدير، لا إله إلا الله وحده، أنجز وعده، ونصر عبده، وهزم الأحزاب وحده</div>
+                        </div>
+                        <div class="dua-card">
+                            <div class="dua-title">☀️ دعاء يوم عرفة</div>
+                            <div class="dua-text">لا إله إلا الله وحده لا شريك له، له الملك وله الحمد وهو على كل شيء قدير. اللهم اجعل في قلبي نوراً وفي بصري نوراً وفي سمعي نوراً</div>
+                        </div>
+                        <div class="dua-card">
+                            <div class="dua-title">🪨 دعاء رمي الجمرات</div>
+                            <div class="dua-text">بسم الله، والله أكبر، رغماً للشيطان وحزبه، اللهم اجعله حجاً مبروراً وذنباً مغفوراً</div>
+                        </div>
+                        <div class="dua-card">
+                            <div class="dua-title">💧 دعاء شرب ماء زمزم</div>
+                            <div class="dua-text">اللهم إني أسألك علماً نافعاً ورزقاً واسعاً وشفاءً من كل داء</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="hajj-tab-content" id="tipsTab" style="display:none;">
+                    <div class="hajj-intro">
+                        <div class="hajj-intro-icon">💡</div>
+                        <h3>نصائح مهمة للحاج والمعتمر</h3>
+                    </div>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-icon">📋</div>
+                            <h4>قبل السفر</h4>
+                            <ul>
+                                <li>تعلّم المناسك جيداً قبل السفر</li>
+                                <li>اقضِ ديونك ورد الأمانات</li>
+                                <li>استخر الله واطلب الدعاء من أهلك</li>
+                                <li>جهّز أوراقك ومستنداتك</li>
+                            </ul>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🧳</div>
+                            <h4>ماذا تأخذ معك</h4>
+                            <ul>
+                                <li>ملابس الإحرام (قطعتان بيضاوان)</li>
+                                <li>أدوية شخصية وواقي شمس</li>
+                                <li>مصحف صغير وكتاب أدعية</li>
+                                <li>حذاء مريح للمشي الطويل</li>
+                            </ul>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🏥</div>
+                            <h4>نصائح صحية</h4>
+                            <ul>
+                                <li>أكثر من شرب الماء لتجنب الجفاف</li>
+                                <li>استخدم المظلة للحماية من الشمس</li>
+                                <li>تجنب الزحام الشديد قدر الإمكان</li>
+                                <li>احمل معقم يدين ومناديل مبللة</li>
+                            </ul>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-icon">🤲</div>
+                            <h4>نصائح روحانية</h4>
+                            <ul>
+                                <li>أكثر من الدعاء والاستغفار</li>
+                                <li>تحلّ بالصبر والرفق بالآخرين</li>
+                                <li>اجعل نيتك خالصة لله تعالى</li>
+                                <li>استغل كل لحظة في الذكر والعبادة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ========== API Section (Last) ========== -->
         <section class="api-section" id="apiSection">
             <div class="api-toggle" onclick="toggleAPI()">

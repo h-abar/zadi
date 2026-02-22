@@ -526,6 +526,91 @@ body {
 .location-text { font-size: 0.82rem; color: var(--text-muted); }
 .qibla-btn { margin: 0 1.25rem 1.25rem; width: calc(100% - 2.5rem); justify-content: center; }
 
+/* ============ Hajj & Umrah Section ============ */
+.hajj-tabs {
+    display: flex; gap: 0; border-bottom: 1.5px solid var(--border-light);
+    background: var(--bg-accent); overflow-x: auto; scrollbar-width: none;
+}
+.hajj-tabs::-webkit-scrollbar { display: none; }
+.hajj-tab {
+    flex: 1; min-width: 0; padding: 0.85rem 0.5rem;
+    background: transparent; border: none; border-bottom: 3px solid transparent;
+    color: var(--text-muted); font-family: 'Tajawal', sans-serif; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; transition: var(--transition); white-space: nowrap; text-align: center;
+}
+.hajj-tab:hover { color: var(--accent-gold); background: rgba(184,134,11,0.04); }
+.hajj-tab.active { color: var(--accent-gold); border-bottom-color: var(--accent-gold); background: rgba(184,134,11,0.06); }
+
+.hajj-tab-content { animation: fadeInUp 0.3s ease; }
+
+.hajj-intro {
+    text-align: center; padding: 1.75rem 1.25rem 1rem;
+    background: linear-gradient(180deg, rgba(184,134,11,0.06), transparent);
+}
+.hajj-intro-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.hajj-intro h3 { font-family: 'Amiri', serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem; }
+.hajj-intro p { font-size: 0.88rem; color: var(--text-muted); max-width: 400px; margin: 0 auto; line-height: 1.7; }
+
+.hajj-steps { padding: 0.5rem 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0; }
+.hajj-step {
+    display: flex; gap: 1rem; padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border-light); position: relative;
+}
+.hajj-step:last-child { border-bottom: none; }
+.step-number {
+    flex-shrink: 0; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--accent-gold), #8B6508);
+    color: #fff; border-radius: 50%; font-family: 'Amiri', serif;
+    font-size: 1.05rem; font-weight: 700; box-shadow: var(--shadow-gold);
+}
+.step-content { flex: 1; min-width: 0; }
+.step-content h4 { font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.step-content p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
+.step-dua {
+    margin-top: 0.65rem; padding: 0.75rem 1rem;
+    background: rgba(184,134,11,0.06); border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm); font-family: 'Amiri', serif;
+    font-size: 1.05rem; line-height: 1.9; color: var(--accent-gold); text-align: center;
+}
+.step-list { margin-top: 0.5rem; padding-right: 1.25rem; font-size: 0.88rem; color: var(--text-secondary); line-height: 2; }
+.step-list li { margin-bottom: 0.15rem; }
+
+.dua-cards { padding: 1rem 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.dua-card {
+    padding: 1.15rem; background: var(--bg-accent);
+    border: 1.5px solid var(--border-light); border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+.dua-card:hover { border-color: var(--border-medium); transform: translateX(-3px); box-shadow: var(--shadow-sm); }
+.dua-title { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.6rem; }
+.dua-text {
+    font-family: 'Amiri', serif; font-size: 1.1rem; line-height: 2;
+    color: var(--accent-gold); text-align: center;
+    padding: 0.75rem; background: rgba(184,134,11,0.04);
+    border-radius: var(--radius-sm); border: 1px solid var(--border-light);
+}
+
+.tips-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; padding: 1rem 1.25rem 1.5rem; }
+.tip-card {
+    padding: 1.15rem; background: var(--bg-accent);
+    border: 1.5px solid var(--border-light); border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+.tip-card:hover { border-color: var(--border-medium); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.tip-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.tip-card h4 { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
+.tip-card ul { padding-right: 1rem; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.9; }
+.tip-card li { margin-bottom: 0.15rem; }
+
+@media (max-width: 640px) {
+    .tips-grid { grid-template-columns: 1fr; }
+    .hajj-tab { font-size: 0.78rem; padding: 0.75rem 0.4rem; }
+    .step-number { width: 36px; height: 36px; font-size: 0.95rem; }
+    .step-content h4 { font-size: 0.95rem; }
+    .dua-text { font-size: 1rem; }
+}
+
 /* ============ API Section ============ */
 .api-info { padding: 0 1.25rem 1.25rem; }
 .api-info h3 { font-size: 0.98rem; font-weight: 700; color: var(--text-primary); margin: 1rem 0 0.7rem; }
